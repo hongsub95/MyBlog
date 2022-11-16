@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <h2 class="border-bottom py-2">{{ board.title }}</h2>
+    <a href="{% url 'board:board_edit' board.pk %}">수정하기</a>
+    <a href="{% url 'board:board_delete' board.pk %}">삭제하기</a>
+    <div class=" p-1">
+    <p>생성일 : {{ board.created_at }}</P>
+    <p>수정일 : {{ board.updated_at }}</p>
+    </div>
+    <div class="card my-3">
+        <!-- tag 넣을 자리-->
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">{{ board.content }}</div>
+            <div class="d-flex justify-content-end">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

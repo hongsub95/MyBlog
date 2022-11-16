@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class = 't-flex t-justify-center'>
+<h1> 안녕하세요 hongsub's 블로그입니다</h1>
+</div>
+홍섭이의 블로그를 둘러 보고싶다면?
+<a href ="{% url 'board:board_list' %}">여기 눌러주세요</a>
+{% endblock content %}

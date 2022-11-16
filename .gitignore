@@ -132,3 +132,6 @@ dist
 /static/*
 .venv/*
 .env
+.DS_Store
+uploads/
+node_modules/

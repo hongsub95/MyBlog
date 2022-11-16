@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="POST" action="{% url 'board:board_edit' board.pk %}">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table}}
+        </table>
+        <button type="submit" class="btn btn-outline-secondary">수정하기</button>
+    </form>
+{% endblock content %}

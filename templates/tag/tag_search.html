@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="POST" action="{% url 'board:tag_search' %}">
+    {% csrf_token %}
+    <div class="t-flex">
+        {{form.as_p}}
+    </div>
+    <button type="submit" class="btn btn-outline-secondary">검색</button>
+</form>
+    <div class ="t-flex t-justify-center t-text-xl"> {{tag}} 의 검색 결과입니다 </div>
+    <div class="t-flex t-flex-col t-justify-items-center ">
+        {% if boards_list %}
+            {% for board in boards_list %}
+                <div class="card w-75 m-1">
+                    <div class="card-body">
+                      <h5 class="card-title">{{board.title}}</h5>
+                      <p class="card-text">{{board.content}}</p>
+                      {% if board.tag.all %}
+                          {% for tag in board.tag.all  %}
+                          <h10 class="card-text t-text-sm">{{tag}}</h10>
+                      {% endfor %}
+                      {% endif %}
+                      <a href='{% url 'board:board_detail' board.pk %}' class="btn btn-primary">들어가기</a>
+                    </div>
+                  </div>
+            {% endfor %}
+    </div>
+    </div>
+    <ul class="pagination justify-content-center mb-4">
+        {% if page.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">이전</a>
+        </li>
+        {% else %}
+            <li class="page-item disabled">
+            <a class="page-link" href="#">이전</a>
+        </li>
+            {% endif %}
+        {% for index in page_obj.paginator.page_range %}
+            {% if index == page_obj.number %}
+        <li class="page-item active">
+            <span class="page-link">{{ index }}</span>
+        </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ index }}">{{ index }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+    
+    
+            {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">다음</a>
+        </li>
+            {% else %}
+            <li class="page-item disabled">
+            <a class="page-link" href="#">다음</a>
+        </li>
+            {% endif %}
+      </ul>
+    {% endif %}
+{% endblock content %}
